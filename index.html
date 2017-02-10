@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="btn">发送请求</button>
+    <script>
+        var btn=document.getElementById("btn");
+        function createCORSRequest(method,url) {
+            var xhr=new XMLHttpRequest();
+            if("withCredential"){
+                xhr.open(method,url,true)
+            }else{
+                xhr=new XDomainRequest();
+                xhr.open(method,url)
+            }
+            return xhr;
+        }
+        btn.onclick=function () {
+            var xhr=createCORSRequest("get","http://localhost:8080/cors");
+            xhr.onload=function () {
+                alert(xhr.responseText);
+            }
+            xhr.onerror=function () {
+                alert("error");
+            }
+            xhr.send(null);
+        }
+    </script>
+</body>
+</html>
